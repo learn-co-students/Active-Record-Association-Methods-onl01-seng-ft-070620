@@ -2,13 +2,16 @@ class Song < ActiveRecord::Base
   belongs_to :artist
   belongs_to :genre
 
+# return the name of the genre the current song belongs to
   def get_genre_name
+    self.genre.name
   end
 
+# create an association between a song and an artist
+# create a record for Drake only if it hasn't been created yet
+# assign the current song to the drake Artist instance
   def drake_made_this
-    # when this method is called it should assign the song's artist to Drake
-    # Drake doesn't exist in the database as an artist yet, so you'll have to create a record
-    # Hint: you won't want to create an artist record every time this method is called, only if an Drake is *not found*
-
+    drake = Artist.find_or_create_by(name: "Drake")
+    self.artist = drake
   end
 end
